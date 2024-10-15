@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INCLUDE Create new account Page | CodingNepal</title>
+<!--  <link rel="icon" type="image/png" href="image/icons8-xing-squared-57.png" sizes="50x50">-->
+  <link rel="stylesheet" type="text/css" th:href="@{/dangky.css}">
+  <style>
+    .alert {
+        color: red;
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container flex">
+  <div class="facebook-page flex">
+    <div class="text" >
+      <h1 style="color: #6c2eca">QUIZZ</h1>
+      <p> Teachers love us  😍</p>
+      <p>Join over 200 million educators <br>
+        and learners on Quizz</p>
+    </div>
+    <form method="POST" action="/createuser">
+      <input type="text"id="tk" name="taikhoan" placeholder="Username" required>
+      <input type="password" id="mk1" name="mk1" placeholder="Password" required>
+      <input type="password" id="mk2" name="mk2" placeholder="Check Password " required>
+      <input type="text" class="form-control" id="dienthoai" name="dienthoai" placeholder="Điện Thoại">
+      <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+      <div style="padding-bottom: 5px" class="alert" th:if="${message}" th:text="${message}"></div>
+      <div class="link">
+        <button type="submit" class="login" style=" background: #6c2eca; color: #ffffff">Register</button>
+        <a href="" class="forgot" style="color: #6c2eca">Forgot password?</a>
+      </div>
+      <hr>
+      <div class="button">
+        <a href="/login" style=" background: #4b208c; color: #ffffff">LOGIN</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+
+
+</title>
+</head>
+<body>
+
+</body>
+</html>
