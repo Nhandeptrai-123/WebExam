@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class springSecurity {
     private static final String[] CSS_JS = {
-            "/", "/signup", "/finduser", "/login", "/createuser", "/createtest", "/library", "/contact","/about","/example_2","/example_1",
+            "/", "/signup", "/finduser", "/login", "/createuser", "/createtest", "/library", "/kiemtra", "/questions", "/contact","/about","/example_2","/example_1",
             "/bootstrap.css","/create_name_exam.css","/create-name_exam.js","/createExample_1","/exam_1",
             "/responsive.css",
             "/style.css",

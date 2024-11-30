@@ -1,8 +1,11 @@
 package com.webquizz.webquizz.Controler;
 
+import com.webquizz.webquizz.Reponsitory.MakeExamRepository;
 import com.webquizz.webquizz.Service.examServiceIPM;
 import com.webquizz.webquizz.Service.questionServiceIPM;
+
 import com.webquizz.webquizz.model.exam;
+
 import com.webquizz.webquizz.model.question;
 import com.webquizz.webquizz.model.user;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import static java.lang.System.out;
 
@@ -28,6 +32,9 @@ public class CreateExampleControler {
 
     @Autowired
     private questionServiceIPM questionService;
+    @Autowired
+    private MakeExamRepository makeExamRepository;
+
 
     @PostMapping("/createExample_1")
     public String createExample(
@@ -109,5 +116,8 @@ public class CreateExampleControler {
         // Chuyển hướng lại trang Example_1 để tránh mất dữ liệu
         return "redirect:/example_1?IDexam=" + examId + "&NameExam=" + URLEncoder.encode(NameExam, "UTF-8");
     }
+
+
+
 
 }

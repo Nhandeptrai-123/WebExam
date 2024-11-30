@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách Make Exam</title>
+
+  <!-- Link Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f6f9;
+      margin-top: 20px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    h1 {
+      color: #4b208c;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .alert {
+      font-size: 1.1rem;
+      background-color: #f9c74f;
+      color: #333;
+    }
+
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .card-header {
+      background-color: #4b208c;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    table {
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    th {
+      background-color: #4b208c;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 12px;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    .btn-back, .btn-primary {
+      background-color: #4b208c;
+      color: white;
+      font-weight: 500;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+      margin-top: 20px;
+    }
+
+    .btn-back:hover, .btn-primary:hover {
+      background-color: #6a3cb3;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Tiêu đề -->
+  <h1>Danh Sách Bài Kiểm Tra</h1>
+
+  <!-- Thông báo nếu danh sách bài kiểm tra trống -->
+  <div th:if="${#lists.isEmpty(exams)}" class="alert alert-warning text-center" role="alert">
+    <h4 class="mb-3">Chưa có ai thực hiện bài kiểm tra này!</h4>
+    <p class="mb-4">ID bài kiểm tra hiện tại: <span th:text="${idExam}"></span></p>
+    <a href="/library" class="btn btn-primary">Quay lại trang Library</a>
+  </div>
+
+  <!-- Danh sách bài kiểm tra -->
+  <div class="card shadow-lg">
+    <div class="card-header text-center">
+      Bảng Thông Tin Bài Kiểm Tra
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>ID Bài Thi</th>
+          <th>Tên Người Dùng</th>
+          <th>Kết Quả</th>
+          <th>Ngày Tạo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+          <td th:text="${exam.id}"></td>
+          <td th:text="${exam.exam}"></td>
+          <td th:text="${exam.userName}"></td>
+          <td th:text="${exam.ketqua}"></td>
+          <td th:text="${exam.getFormattedCreatedAt()}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Nút quay lại -->
+  <div class="text-center">
+    <a href="/library" class="btn-back">Quay lại trang Library</a>
+  </div>
+</div>
+
+<!-- Link JS Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -48,8 +48,13 @@ public class dangnhapControler {
                 return "dangnhap";
             } else {
                 session.setAttribute("user", user);
-                out.println("<script>alert('Đăng nhập thành công');</script>");
-                return "redirect:/"; // Sử dụng tên view không phải đường dẫn URL
+                if ("admin".equals(user.getRole())) {
+                    out.println("<script>alert('Đăng nhập thành công với vai trò quản trị viên');</script>");
+                    return "redirect:/admin"; // Chuyển đến trang admin nếu role là admin
+                } else {
+                    out.println("<script>alert('Đăng nhập thành công');</script>");
+                    return "redirect:/"; // Chuyển đến trang chính nếu role là user
+                }
             }
 
         } catch (Exception e) {

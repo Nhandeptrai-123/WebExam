@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface questionService {
     question createQuestion(question question);
+    // Thêm phương thức lấy câu hỏi theo ID
+    question getQuestionById(Integer id);
+
 }

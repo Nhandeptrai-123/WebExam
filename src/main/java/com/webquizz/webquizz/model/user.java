@@ -22,6 +22,8 @@ public class user implements Serializable {
     private String sodienthoai;
     @Column(nullable = false)
     private  String email;
+    @Column(name = "role")
+    private String role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<exam> exam;
 
@@ -65,8 +67,16 @@ public class user implements Serializable {
         this.sodienthoai = sodienthoai;
     }
 
+
     public String getEmail() {
         return email;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setEmail(String email) {
