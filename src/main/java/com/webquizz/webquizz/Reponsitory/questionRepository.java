@@ -12,5 +12,10 @@ import java.util.Optional;
 public interface questionRepository extends JpaRepository<question, Integer> {
     @Query("SELECT q FROM question q WHERE q.exam.idExam = :examId")
     List<question> findByExamId(@Param("examId") Integer examId);
+    // Nếu bạn cần một phương thức để lấy tất cả câu hỏi, có thể thêm vào đây
+    @Query("SELECT e FROM exam e")
+    List<exam> findAllExams();
+
+
 }
 

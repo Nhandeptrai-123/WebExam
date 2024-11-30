@@ -1,6 +1,7 @@
 package com.webquizz.webquizz.Reponsitory;
 
 import com.webquizz.webquizz.model.exam;
+import com.webquizz.webquizz.model.make_exam;
 import com.webquizz.webquizz.model.question;
 import com.webquizz.webquizz.model.user;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,6 @@ public interface exampleRepository extends JpaRepository<exam, Integer> {
     List<exam> findByuser(user user);
     @Query("SELECT e FROM exam e WHERE e.user.id = :userId")
     List<exam> findAllExamsByUserId(@Param("userId") String userId);
+    @Query("SELECT e FROM exam e WHERE e.idExam =:idExam")
+    List<exam> findAllExamsByIdExam(@Param("idExam") Integer idExam);
 }

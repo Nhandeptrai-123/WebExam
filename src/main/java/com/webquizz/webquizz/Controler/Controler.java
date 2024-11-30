@@ -1,10 +1,12 @@
 package com.webquizz.webquizz.Controler;
 
-import com.webquizz.webquizz.Reponsitory.questionRepository;
+import com.webquizz.webquizz.Reponsitory.MakeExamRepository;
+import com.webquizz.webquizz.Service.MakeExamService;
 import com.webquizz.webquizz.Service.examServiceIPM;
-import com.webquizz.webquizz.Service.questionService;
 import com.webquizz.webquizz.Service.questionServiceIPM;
+
 import com.webquizz.webquizz.model.exam;
+import com.webquizz.webquizz.model.make_exam;
 import com.webquizz.webquizz.model.question;
 import com.webquizz.webquizz.model.user;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,8 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,10 @@ public class Controler {
     private examServiceIPM examService;
     @Autowired
     private questionServiceIPM questionServiceIPM;
+
+    @Autowired
+    private MakeExamService MakeExamService;
+
     @GetMapping("/")
     public String index(HttpSession session, HttpServletRequest request, Model model) {
         session = request.getSession(false);
@@ -115,6 +120,88 @@ public class Controler {
         model.addAttribute("user", user);
         return "Library";
     }
+    @GetMapping("/kiemtra")
+    public String kiemTra(HttpSession session, Model model) {
+        user user = (user) session.getAttribute("user");
+        if (user == null) {
+            model.addAttribute("loggedIn", false);
+            return "redirect:/login"; // Chuyển hướng về trang đăng nhập nếu không có session
+        }else{
+            model.addAttribute("username", user.getTaikhoan());
+            model.addAttribute("loggedIn", true); // Đặt cờ loggedIn là true
+        }
+        List<exam> exams = questionServiceIPM.getAllExams();
+        if (exams != null && !exams.isEmpty()) {
+            model.addAttribute("exams", exams);
+        } else {
+            model.addAttribute("exams", Collections.emptyList());
+        }
+        sessionEmail(user, model);
+        model.addAttribute("user", user); // Add the list of questions to the model
+        return "kiemtra"; // Return the view kiemtra.html
+    }
+    @GetMapping("/questions/{idExam}")
+    public String getQuestionsByExamId(@PathVariable Integer idExam, HttpSession session, Model model) {
+        // Lấy thông tin người dùng từ session
+        user user = (user) session.getAttribute("user");
+
+        if (user == null) {
+            model.addAttribute("loggedIn", false);
+            return "redirect:/login"; // Chuyển hướng đến trang đăng nhập nếu người dùng chưa đăng nhập
+        } else {
+            model.addAttribute("username", user.getTaikhoan());
+            model.addAttribute("loggedIn", true); // Đặt cờ loggedIn là true
+        }
+
+        // Lấy danh sách câu hỏi theo idExam
+        List<question> questions = questionServiceIPM.getAllByExamId(idExam);
+        model.addAttribute("questions", questions); // Thêm danh sách câu hỏi vào model
+
+        // Truyền idExam và idUser vào model để sử dụng trong Thymeleaf
+        model.addAttribute("idExam", idExam);
+        model.addAttribute("idUser", user.getId());
+
+        return "questions"; // Trả về trang questions.html
+    }
+    @GetMapping("/my-questions")
+    public String myQuestions(HttpSession session, Model model) {
+        // Lấy thông tin người dùng từ session
+        user user = (user) session.getAttribute("user");
+
+        if (user == null) {
+            model.addAttribute("loggedIn", false);
+            return "redirect:/login"; // Chuyển hướng đến trang đăng nhập nếu người dùng chưa đăng nhập
+        } else {
+            model.addAttribute("username", user.getTaikhoan());
+            model.addAttribute("loggedIn", true); // Đặt cờ loggedIn là true
+        }
+
+        // Lấy danh sách bài kiểm tra mà người dùng đã thực hiện
+        List<make_exam> userExams = MakeExamService.getExamsByUserId(user.getId());
+
+        // Thêm danh sách bài kiểm tra vào model
+        if (userExams != null && !userExams.isEmpty()) {
+            model.addAttribute("userExams", userExams);
+        } else {
+            model.addAttribute("userExams", Collections.emptyList());
+        }
+
+        // Thêm thông tin người dùng vào model
+        sessionEmail(user, model);
+        model.addAttribute("user", user);
+
+        return "my-questions"; // Trả về trang my-questions.html
+    }
+
+
+
+
+
+
+
+
+
+
     @GetMapping("/contact")
     public String contact(HttpSession session, Model model) {
         user user = (user) session.getAttribute("user");
