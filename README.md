@@ -6,5 +6,3 @@ CLIENT:
 5. làm bài thi
 6. tìm kiếm bài thi
 
-SERVER:
-Chưa có gì =)))
