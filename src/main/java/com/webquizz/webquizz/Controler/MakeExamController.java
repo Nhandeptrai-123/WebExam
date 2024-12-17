@@ -61,6 +61,8 @@ public ResponseEntity<Map<String, Object>> submitExamResults(@RequestBody ExamRe
     String userId = examResultDTO.getUserId();
     String examId = examResultDTO.getExamId();
     String result = examResultDTO.getResult();
+    String userName = examResultDTO.getUserName();
+
 
     // Kiểm tra nếu đã có bản ghi với examId và userId giống nhau
     List<make_exam> existingMakeExams = MakeExamRepository.findByUserAndExam(userId, examId);
@@ -81,7 +83,8 @@ public ResponseEntity<Map<String, Object>> submitExamResults(@RequestBody ExamRe
         make_exam makeExam = new make_exam();
         makeExam.setUser(userId);
         makeExam.setExam(examId);
-        makeExam.setKetqua(result);  // Lưu kết quả vào cột "ketqua"
+        makeExam.setKetqua(result);
+        makeExam.setUserName(userName);// Lưu kết quả vào cột "ketqua"
 
         makeExamService.save(makeExam);  // Lưu bài kiểm tra mới vào cơ sở dữ liệu
 

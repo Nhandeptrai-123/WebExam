@@ -15,5 +15,7 @@ public interface MakeExamRepository extends JpaRepository<make_exam, Long> {
     List<make_exam> findByUser(@Param("userId") String userId);
     @Query("SELECT m FROM make_exam m WHERE m.user = :userId AND m.exam = :examId")
     List<make_exam> findByUserAndExam(@Param("userId") String userId, @Param("examId") String examId);
+    @Query("SELECT m FROM make_exam m WHERE m.exam= :examId")
+    List<make_exam> findByExamId(@Param("examId") String examId);
 
 }

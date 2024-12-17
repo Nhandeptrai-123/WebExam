@@ -54,6 +54,7 @@ public class dangkyControler {
             user.setMatkhau1(passwordCode);
             user.setSodienthoai(dienthoai);
             user.setEmail(email);
+            user.setRole("user");
 
             // Lưu thông tin người dùng vào cơ sở dữ liệu
             userRequest.createUser(user);

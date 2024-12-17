@@ -26,13 +26,18 @@
   <div class="hero_area">
     <div th:replace="~{fragments/navbar :: header}"></div>
   </div>
+<!--  <div class="search-box">-->
+<!--    <form class="d-flex">-->
+<!--      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--      <button class="btn btn-primary btn-search" type="submit" style="background-color:#4b208c;">Search</button>-->
+<!--    </form>-->
+<!--  </div>-->
   <div class="search-box">
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="d-flex" action="/library" method="get">
+      <input class="form-control me-2" type="search" name="query" placeholder="Tìm kiếm bài kiểm tra (ID hoặc tên)" aria-label="Search">
       <button class="btn btn-primary btn-search" type="submit" style="background-color:#4b208c;">Search</button>
     </form>
   </div>
-
   <!-- service section -->
   <section class="service_section layout_padding d-flex justify-content-center">
     <div class="container">
@@ -65,10 +70,24 @@
               </div>
             </div>
 
-            <div class="col-2 d-flex justify-content-center">
-<!--              <button type="button" style="color:white;" class="btn btn-check"><a th:href="@{/repairExam_1/{idExam}{idExam =${exam.idExam}}">Check</a></button>-->
-              <button type="button" style="color:white;" class="btn btn-check">Check</button>
+            <div class="col-2 d-flex flex-column align-items-center">
+              <!-- Nút Check -->
+              <button type="button" class="btn mb-2" style="background-color:#4b208c; color:white; width: 100%;">
+                <a th:href="@{/example_1(IDexam=${exam.idExam}, NameExam=${exam.nameExam})}"
+                   style="color:white; text-decoration: none;">
+                  Check
+                </a>
+              </button>
+
+              <!-- Nút Danh sách -->
+              <button type="button" class="btn btn-secondary" style="color:white; width: 100%;">
+                <a th:href="@{/make_exam/{idExam}(idExam=${exam.idExam})}"
+                   style="color:white; text-decoration: none;">
+                  Danh sách
+                </a>
+              </button>
             </div>
+
           </div>
         </div>
 

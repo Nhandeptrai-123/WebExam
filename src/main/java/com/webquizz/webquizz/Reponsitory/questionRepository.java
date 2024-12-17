@@ -15,6 +15,8 @@ public interface questionRepository extends JpaRepository<question, Integer> {
     // Nếu bạn cần một phương thức để lấy tất cả câu hỏi, có thể thêm vào đây
     @Query("SELECT e FROM exam e")
     List<exam> findAllExams();
+    @Query("SELECT ee FROM exam ee")
+    List<exam> findAllExamss();
 
 
 }

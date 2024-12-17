@@ -1,9 +1,17 @@
 package com.webquizz.webquizz.Service;
 
+import com.webquizz.webquizz.Reponsitory.questionRepository;
+import com.webquizz.webquizz.model.exam;
+import com.webquizz.webquizz.model.user;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class userService {
+    @Autowired
+    private com.webquizz.webquizz.Reponsitory.userReponsitory userReponsitory;
     private String taikhoan;
     private String matkhau1;
     private String sodienthoai;
@@ -39,5 +47,18 @@ public class userService {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public List<user> getAllUser() {
+        return userReponsitory.findAllUser(); // Ensure this method is defined in the repository
+    }
+    public void deleteUserById(String id) {
+        userReponsitory.deleteById(id);  // Assuming userReponsitory extends JpaRepository
+    }
+    public user findById(String id) {
+        return userReponsitory.findById(id).orElse(null);
+    }
+
+    public void save(user user) {
+        userReponsitory.save(user);
     }
 }

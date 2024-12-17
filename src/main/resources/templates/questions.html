@@ -54,9 +54,11 @@
     }
   </style>
 </head>
-<body th:data-user-id="${idUser}" th:data-exam-id="${idExam}">
+<body th:data-user-id="${idUser}" th:data-exam-id="${idExam}" th:data-user-name="${username}">>
 <!--<h1>ID Người Dùng: <span th:text="${idUser}"></span></h1>-->
 <!--<h2>ID Bài Thi: <span th:text="${idExam}"></span></h2>-->
+
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-2 text-start">
@@ -136,7 +138,7 @@
   // Back button functionality
   backButton.addEventListener('click', () => {
     if (confirm('Bạn có chắc muốn quay lại? Những câu trả lời của bạn sẽ không được lưu.')) {
-      window.location.href = '/'; // Adjust this to your actual back route
+      window.location.href = '/kiemtra'; // Adjust this to your actual back route
     }
   });
 
@@ -195,6 +197,7 @@
     if (confirm('Bạn có muốn lưu kết quả bài làm không?')) {
       const userId = document.body.getAttribute('data-user-id'); // ID người dùng
       const examId = document.body.getAttribute('data-exam-id'); // ID bài kiểm tra
+      const userName = document.body.getAttribute('data-user-name'); // tên người kiểm tra
       const score = scorePercentage; // Điểm số
 
       // Gửi dữ liệu lên backend
@@ -204,7 +207,9 @@
         body: JSON.stringify({
           userId: userId,  // ID người dùng
           examId: examId,  // ID bài kiểm tra
+          userName: userName,
           result: scorePercentage
+
         })
       })
               .then(response => response.json())

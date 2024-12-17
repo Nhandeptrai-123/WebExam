@@ -1,0 +1,245 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Exam</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 10px 0;
+    }
+
+    .sidebar li span {
+      display: block;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar li span:hover {
+      background-color: #555;
+    }
+
+    .content {
+      margin-left: 270px;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    .button {
+      padding: 5px 10px;
+      background-color: #7d3c23;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: darkred;
+    }
+
+    .role-button {
+      padding: 5px 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .role-button:hover {
+      background-color: darkgreen;
+    }
+    .sidebar li a {
+      display: block;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none; /* Loại bỏ gạch chân */
+      transition: background-color 0.3s;
+    }
+
+    .sidebar li a:hover {
+      background-color: #555; /* Màu nền khi hover */
+    }
+
+    .sidebar li span {
+      display: block;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar li span:hover {
+      background-color: #555;
+    }
+
+    .content {
+      margin-left: 270px;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    /* Nút ở góc trên phải */
+    .top-right-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .top-right-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Nút quay lại góc dưới phải */
+    /* Logo Ngôi nhà góc trên phải */
+    .home-logo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3f4042;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .home-logo:hover {
+      background-color: #313437;
+    }
+
+    /* Nút Quay lại góc dưới trái */
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #484749;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #0c2035;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <h1>Hello, Admin</h1>
+  <ul>
+
+    <li><a href="/admin"><span>user</span></a></li>
+    <li><a href="/admin-exam"><span>exam</span></a></li>
+  </ul>
+</div>
+<!-- Nút ở góc trên phải -->
+
+<div class="content">
+  <h2>Welcome to the Exam Dashboard</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Exam Name</th>
+      <th>Test</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exam : ${examss}">
+      <td th:text="${exam.nameExam}"></td>
+      <td th:text="${exam.test}"></td>
+      <td th:text="${exam.formattedDateExam}"></td>
+      <td>
+        <!-- Hành động chỉnh sửa và xóa -->
+
+
+        <a href="#" th:href="@{/exam/delete/{id}(id=${exam.idExam})}">
+          <button class="button">Delete</button>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<button class="home-logo"  onclick="window.location.href='/'">
+  <i class="fas fa-home"></i>
+</button>
+
+<!-- Nút Quay lại góc dưới trái -->
+<button class="back-button" onclick="window.location.href='/logout'" >
+  <i class="fas fa-arrow-left"></i>
+</button>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+</html>
